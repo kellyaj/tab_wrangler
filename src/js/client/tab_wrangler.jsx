@@ -8,7 +8,14 @@ module.exports = React.createClass({
   componentDidMount: function() {
    var self = this;
    chrome.tabs.getAllInWindow(function(tabs) {
-     console.log(tabs);
+     tabs.map(function(tab) {
+       var tabKey = "tab_" + tab.id;
+       chrome.storage.local.set({
+         tabKey: { createdAt: new Date()}
+       });
+       console.log(tabKey);
+       console.log(chrome.storage.local.get(tabKey));
+     });
      self.setState({currentTabs: tabs});
    });
   },

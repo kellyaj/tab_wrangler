@@ -12,7 +12,6 @@ var notify     = require('gulp-notify');
 
 var paths = {
   jsx: './src/js/**/*.jsx',
-  background: './src/js/background.js',
   scss: './src/styles/**/*.scss'
 };
 
@@ -40,25 +39,6 @@ gulp.task('buildComponents', function() {
   bundleComponents();
 });
 
-gulp.task('buildBackground', function() {
-  var backgroundBundler = browserify({
-    debug: true
-  })
-  .require(require.resolve('./src/js/background.js'))
-
-  var bundleBackground = function() {
-    var start = Date.now();
-    var destination = 'background_bundle.js';
-      backgroundBundler.bundle()
-      .pipe(source(destination))
-      .pipe(gulp.dest('build/js/bundles'))
-      .pipe(notify(function() { buildMessage(destination, start) }));
-  };
-
-  bundleBackground();
-});
-
-
 gulp.task('buildStyles', function() {
   var start = Date.now();
   gulp.src(paths.scss)
@@ -69,12 +49,11 @@ gulp.task('buildStyles', function() {
 
 gulp.task('watch', function() {
   gulp.watch(paths.jsx, ['buildComponents']);
-  gulp.watch(paths.background, ['buildBackground']);
   gulp.watch(paths.scss, ['buildStyles']);
 });
 
 gulp.task('build', function() {
-  gulp.start('buildBackground', 'buildComponents', 'buildStyles');
+  gulp.start('buildComponents', 'buildStyles');
 });
 
 gulp.task('default', ['build', 'watch'])

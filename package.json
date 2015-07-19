@@ -14,9 +14,5 @@
     "gulp-watch": "~4.3.3",
     "vinyl-source-stream": "~1.1.0",
     "gulp-notify": "~2.2.0"
-  },
-  "scripts": {
-    "watch": "./scripts/watch.sh",
-    "build": "./scripts/build.sh"
   }
 }

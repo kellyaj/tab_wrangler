@@ -8,7 +8,7 @@ module.exports = React.createClass({
 
   render: function() {
     var tabCards = this.props.tabs.map(function(tab) {
-      return <CurrentTabCard title={tab.title} />
+      return <CurrentTabCard id={tab.id} title={tab.title} createdAt = {tab.createdAt}/>
     });
     return (
       <div>

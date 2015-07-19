@@ -5,12 +5,13 @@
   "version": "0.0.1",
   "chrome_url_overrides" : { "newtab": "./build/html/wrangler.html" },
   "background": {
-    "scripts": ["./build/js/bundles/background_bundle.js"],
-    "persistent": true
+    "scripts": ["./build/js/background.js"],
+    "persistent": false
   },
   "permissions": [
     "tabs",
     "storage",
-    "alarms"
+    "alarms",
+    "activeTab"
   ]
 }

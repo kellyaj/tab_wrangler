@@ -1,8 +1,11 @@
-var CurrentTabCard = require('./card.jsx');
-
 module.exports = React.createClass({
   getInitialState: function() {
-    return {title: ""};
+    return {tabData: {}};
+  },
+
+  componentDidMount: function() {
+    tabData = {}//chrome.storage.local.get(this.props.id);
+    this.setState({tabData: tabData});
   },
 
   render: function() {
