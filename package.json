@@ -3,16 +3,17 @@
   "version": "0.0.1",
   "description": "The Tab Wrangler",
   "devDependencies": {
-    "watchify": "~3.3.0",
     "browserify": "~11.00.0",
-    "nodeunit": "~0.9.1",
-    "reactify": "~1.1.1",
-    "node-bourbon": "~4.2.3",
-    "node-neat": "~1.7.2",
     "gulp": "~3.9.0",
+    "gulp-notify": "~2.2.0",
     "gulp-sass": "~2.0.4",
     "gulp-watch": "~4.3.3",
+    "moment": "^2.10.3",
+    "node-bourbon": "~4.2.3",
+    "node-neat": "~1.7.2",
+    "nodeunit": "~0.9.1",
+    "reactify": "~1.1.1",
     "vinyl-source-stream": "~1.1.0",
-    "gulp-notify": "~2.2.0"
+    "watchify": "~3.3.0"
   }
 }

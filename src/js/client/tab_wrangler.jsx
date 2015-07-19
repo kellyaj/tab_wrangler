@@ -1,3 +1,5 @@
+var TabRepository = require('./current_tab_list/tab_repository.jsx');
+var Utils = require('./current_tab_list/utils.jsx');
 var CurrentTabList = require('./current_tab_list/current_tab_list.jsx')
 
 module.exports = React.createClass({
@@ -5,19 +7,13 @@ module.exports = React.createClass({
     return {currentTabs: []};
   },
 
-  unStoredTab: function(tabId, tabRepository) {
-    return tabRepository.getItem(tabId);
-  },
-
   componentDidMount: function() {
    var self = this;
    chrome.tabs.getAllInWindow(function(tabs) {
-     var tabRepository = localStorage;
      tabs.map(function(tab) {
-       if(self.unStoredTab(tab.id, tabRepository)) {
-         var tabKey = "tab_" + tab.id;
-         var defaultData = JSON.stringify({ createdAt: new Date()})
-         tabRepository.setItem(tabKey, defaultData);
+       if(TabRepository.missingKey()) {
+         var tabKey = Utils.tabKeyFor(tab.id)
+         TabRepository.set(tabKey, {createdAt: new Date()})
        }
      });
      self.setState({currentTabs: tabs});

@@ -1,20 +1,29 @@
+var TabRepository = require('./tab_repository.jsx');
+var Presenter     = require('./tab_data_presenter.jsx');
+var Utils         = require('./utils.jsx');
+
 module.exports = React.createClass({
   getInitialState: function() {
     return {tabData: {}};
   },
 
   componentDidMount: function() {
-    var tabRepository = localStorage;
-    var tabKey = "tab_" + this.props.id;
-    var tabData = JSON.parse(tabRepository.getItem(tabKey));
-    this.setState({tabData: tabData});
+    var tabKey = Utils.tabKeyFor(this.props.id)
+    var tabData = TabRepository.get(tabKey);
+    console.log(Presenter.calculateTabAge(tabData.createdAt));
+    var age = Presenter.calculateTabAge(tabData.createdAt);
+    this.setState({
+      createdAt: tabData.createdAt,
+      age: age
+    });
   },
 
   render: function() {
     return (
       <div>
         <h2>{this.props.title}</h2>
-        <h3>{this.state.tabData.createdAt}</h3>
+        <h3>{this.state.createdAt}</h3>
+        <h3>{this.state.age}</h3>
       </div>
     );
   }
