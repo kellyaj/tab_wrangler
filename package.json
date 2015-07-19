@@ -6,7 +6,11 @@
     "watchify": "~3.3.0",
     "browserify": "~11.00.0",
     "nodeunit": "~0.9.1",
-    "reactify": "~1.1.1"
+    "reactify": "~1.1.1",
+    "node-bourbon": "~4.2.3",
+    "node-neat": "~1.7.2",
+    "gulp": "~3.9.0",
+    "gulp-sass": "~2.0.4"
   },
   "scripts": {
     "watch": "./scripts/watch.sh",
