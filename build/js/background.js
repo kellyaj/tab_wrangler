@@ -1,20 +1,34 @@
+var tabRepository;
+
+var initializeStorage = function() {
+  tabRepository = localStorage;
+}
+
 var defaultData = function() {
   return {
     createdAt: new Date()
   }
 }
 
-chrome.storage.local.set({
-  defaultData: defaultData
-});
+var createTabKey = function(tabId) {
+  return "tab_" + tabId;
+}
+
+var createDefaultData = function() {
+  var defaultData = {
+    createdAt: new Date()
+  }
+  return JSON.stringify(defaultData);
+}
 
 var storeTab = function(tab) {
-  var tabKey = "" + tab.id;
+  var tabKey = createTabKey(tab.id);
+  var defaultData = createDefaultData();
 
-  chrome.storage.local.set({
-    tabKey: chrome.storage.local.get("defaultData");
-  });
+  tabRepository.setItem(tabKey, defaultData);
 }
+
+initializeStorage();
 
 chrome.tabs.onCreated.addListener(function(tab) {
   storeTab(tab)

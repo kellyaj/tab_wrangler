@@ -5,16 +5,20 @@ module.exports = React.createClass({
     return {currentTabs: []};
   },
 
+  unStoredTab: function(tabId, tabRepository) {
+    return tabRepository.getItem(tabId);
+  },
+
   componentDidMount: function() {
    var self = this;
    chrome.tabs.getAllInWindow(function(tabs) {
+     var tabRepository = localStorage;
      tabs.map(function(tab) {
-       var tabKey = "tab_" + tab.id;
-       chrome.storage.local.set({
-         tabKey: { createdAt: new Date()}
-       });
-       console.log(tabKey);
-       console.log(chrome.storage.local.get(tabKey));
+       if(self.unStoredTab(tab.id, tabRepository)) {
+         var tabKey = "tab_" + tab.id;
+         var defaultData = JSON.stringify({ createdAt: new Date()})
+         tabRepository.setItem(tabKey, defaultData);
+       }
      });
      self.setState({currentTabs: tabs});
    });
