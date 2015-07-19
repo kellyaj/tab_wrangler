@@ -15,7 +15,26 @@ var paths = {
   scss: './src/styles/**/*.scss'
 };
 
+var buildMessage = function(name, start) {
+  return console.log("Built " + name + " in " + (Date.now() - start) + "ms")
+};
+
 gulp.task('build', function() {
+
+  var backgroundBundler = browserify({
+    debug: true
+  })
+  .require(require.resolve('./src/js/background.js'))
+
+  var backgroundBundle = function() {
+  var start = Date.now();
+  var destination = 'background_bundle.js';
+    backgroundBundler.bundle()
+    .pipe(source(destination))
+    .pipe(gulp.dest('build/js/bundles'))
+    .pipe(notify(function() { buildMessage(destination, start) }));
+  };
+
   var bundler = browserify({
     debug: true
   })
@@ -25,23 +44,23 @@ gulp.task('build', function() {
 
   var rebundle = function() {
     var start = Date.now();
+    var destination = 'wrangler_bundle.js';
     bundler.bundle()
-    .pipe(source('wrangler_bundle.js'))
+    .pipe(source(destination))
     .pipe(gulp.dest('build/js/bundles/'))
-    .pipe(notify(function() {
-      console.log('built in ' + (Date.now() - start) + 'ms');
-    }));
+    .pipe(notify(function() { buildMessage(destination, start) }));
   };
 
   rebundle();
+  backgroundBundle();
 });
 
 gulp.task('styles', function() {
-  return gulp.src(paths.scss)
-           .pipe(sass({
-             includePaths: ['styles'].concat(neat)
-           }))
-           .pipe(gulp.dest('./build/styles'));
+  var start = Date.now();
+  gulp.src(paths.scss)
+  .pipe(sass({includePaths: ['styles'].concat(neat)}))
+  .pipe(gulp.dest('./build/styles'))
+  .pipe(notify(function() { buildMessage("styles", start) }));
 });
 
 gulp.task('watch', function() {
