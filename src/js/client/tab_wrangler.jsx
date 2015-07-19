@@ -10,12 +10,6 @@ module.exports = React.createClass({
   componentDidMount: function() {
    var self = this;
    chrome.tabs.getAllInWindow(function(tabs) {
-     tabs.map(function(tab) {
-       if(TabRepository.missingKey()) {
-         var tabKey = Utils.tabKeyFor(tab.id)
-         TabRepository.set(tabKey, {createdAt: new Date()})
-       }
-     });
      self.setState({currentTabs: tabs});
    });
   },

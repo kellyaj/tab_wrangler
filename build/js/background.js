@@ -24,6 +24,7 @@ var createDefaultData = function() {
 var storeTab = function(tab) {
   var tabKey = createTabKey(tab.id);
   var defaultData = createDefaultData();
+  console.log(tabKey);
 
   tabRepository.setItem(tabKey, defaultData);
 }
@@ -36,7 +37,7 @@ var forgetTab = function(tabId) {
 initializeStorage();
 
 chrome.tabs.onCreated.addListener(function(tab) {
-  storeTab(tab)
+  storeTab(tab);
 });
 
 chrome.tabs.onRemoved.addListener(function(tabId) {
