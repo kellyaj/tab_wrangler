@@ -28,8 +28,17 @@ var storeTab = function(tab) {
   tabRepository.setItem(tabKey, defaultData);
 }
 
+var forgetTab = function(tabId) {
+  var tabKey = createTabKey(tabId);
+  tabRepository.removeItem(tabKey);
+}
+
 initializeStorage();
 
 chrome.tabs.onCreated.addListener(function(tab) {
   storeTab(tab)
+});
+
+chrome.tabs.onRemoved.addListener(function(tabId) {
+  forgetTab(tabId);
 });
