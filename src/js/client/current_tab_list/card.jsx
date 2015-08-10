@@ -21,7 +21,7 @@ module.exports = React.createClass({
     return (
       <div>
         <h2>{this.props.title}</h2>
-        <h3>created {this.state.age}</h3>
+        <h3>created {this.state.age}, active for 24 seconds</h3>
       </div>
     );
   }

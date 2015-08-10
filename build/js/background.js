@@ -24,7 +24,6 @@ var createDefaultData = function() {
 var storeTab = function(tab) {
   var tabKey = createTabKey(tab.id);
   var defaultData = createDefaultData();
-  console.log(tabKey);
 
   tabRepository.setItem(tabKey, defaultData);
 }
