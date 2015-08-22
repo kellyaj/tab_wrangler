@@ -10,11 +10,13 @@ module.exports = React.createClass({
   componentDidMount: function() {
     var tabKey = Utils.tabKeyFor(this.props.id)
     var tabData = TabRepository.get(tabKey);
-    var age = Presenter.calculateTabAge();
-    this.setState({
-      createdAt: tabData.createdAt,
-      age: age
-    });
+    if(tabData) {
+      var age = Presenter.calculateTabAge(tabData.createdAt);
+      this.setState({
+        createdAt: tabData.createdAt,
+        age: age
+      });
+    }
   },
 
   render: function() {
